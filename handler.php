@@ -25,7 +25,7 @@
         Gender <?php echo $_POST["gender"]; ?>
         filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!file_exists('database/users.csv')) {
-        file_put_contents('database/users.csv', '');
+            file_put_contents('database/users.csv', '');
         }
         $fp = fopen('database/users.csv', 'a');
         fwrite($fp, "$name,$email,$gender \n");

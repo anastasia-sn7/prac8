@@ -47,12 +47,7 @@ body{
            <div class="file-field input-field">
                <div class="btn">
                    <span>Photo</span>
-                   <input type="file">
-                   <form action="upload.php" method="post" enctype="multipart/form-data">
-                       Select image to upload:
-                       <input type="file" name="fileToUpload" id="fileToUpload">
-                       <input type="submit" value="Upload Image" name="submit">
-                   </form>
+                   <input type="file" name =”photo” accept="image/png, image/gif, image/jpeg">
                </div>
                <div class="file-path-wrapper">
                    <input class="file-path validate" type="text">
