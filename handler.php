@@ -1,5 +1,5 @@
 <?php
-// code with validation will be here and saving user will be here
+include 'uploads.php'
 ?>
     <!doctype html>
     <html lang="en">
@@ -18,18 +18,21 @@
     <body style="padding-top: 3rem;">
 
     <div class="container">
-        User Added <?php echo $_POST["name"]; ?><br>
-        filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        Email <?php echo $_POST["email"]; ?>
-        filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        Gender <?php echo $_POST["gender"]; ?>
-        filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        User Added: <?php echo $_POST["name"]; ?><br>
+        <?php $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
+        Email: <?php echo $_POST["email"]; ?><br>
+        <?php $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
+        Gender: <?php echo $_POST["gender"]; ?><br>
+        <?php $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
+        Photo: <?php echo $filePath; ?><br>
+        <?php
         if (!file_exists('database/users.csv')) {
             file_put_contents('database/users.csv', '');
         }
         $fp = fopen('database/users.csv', 'a');
-        fwrite($fp, "$name,$email,$gender \n");
+        fwrite($fp, "$name,$email,$gender,$filePath \n");
         fclose($fp);
+        ?>
         <hr>
         <a class="btn" href="adduser.php">return back</a>
         <a class="btn" href="table.php">view list</a>
