@@ -1,5 +1,7 @@
 <?php
-include 'uploads.php'
+require 'db.php';
+require 'uploads.php';
+
 ?>
     <!doctype html>
     <html lang="en">
@@ -18,20 +20,17 @@ include 'uploads.php'
     <body style="padding-top: 3rem;">
 
     <div class="container">
-        User Added: <?php echo $_POST["name"]; ?><br>
-        <?php $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
-        Email: <?php echo $_POST["email"]; ?><br>
-        <?php $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
-        Gender: <?php echo $_POST["gender"]; ?><br>
-        <?php $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS); ?>
-        Photo: <?php echo $filePath; ?><br>
         <?php
-        if (!file_exists('database/users.csv')) {
-            file_put_contents('database/users.csv', '');
+        // id можно не вказувати, тому що auto increment
+        // пароль будемо встановлювати всім однаковий
+        $sql = "INSERT INTO users (email, name, gender, password, path_to_img)
+   VALUES ('$email', '$name','$gender', '11111', '$filePath')";
+        echo $sql;
+        $res = mysqli_query($conn, $sql);
+        if ($res) {
+            $valid = true;
         }
-        $fp = fopen('database/users.csv', 'a');
-        fwrite($fp, "$name,$email,$gender,$filePath \n");
-        fclose($fp);
+
         ?>
         <hr>
         <a class="btn" href="adduser.php">return back</a>

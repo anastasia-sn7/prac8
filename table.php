@@ -1,15 +1,27 @@
 <?php
 
-if (file_exists('C:\PHPprogs\prac7\database\users.csv'))
-    $user = str_getcsv(str_replace("\n", ",", file_get_contents('C:\PHPprogs\prac7\database\users.csv')));
+session_start();
+$isRestricted = false;
+if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
+    $isRestricted = true;
+}
 
-for ($i = 0; $i <= count($user) - 4; $i += 4) {
-    $users[($i)/4] = [
-        'name' => $user[$i],
-        'email' => $user[$i+1],
-        'gender' => $user[$i+2],
-        'filePath' => $user[$i+3]
-    ];
+require 'db.php';
+$sql = "SELECT * FROM users";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $i = 0;
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $i++;
+        $users[] = [
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'gender' => $row['gender'],
+            'path'=>$row['path_to_img']
+        ];
+    }
 }
 
 for($i = 0; $i < count($users); $i++) {
