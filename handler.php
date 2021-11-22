@@ -1,5 +1,7 @@
 <?php
-// code with validation will be here and saving user will be here
+require 'db.php';
+require 'uploads.php';
+
 ?>
     <!doctype html>
     <html lang="en">
@@ -18,22 +20,31 @@
     <body style="padding-top: 3rem;">
 
     <div class="container">
-        User Added <?php echo $_POST["name"]; ?><br>
-        filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        Email <?php echo $_POST["email"]; ?>
-        filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        Gender <?php echo $_POST["gender"]; ?>
-        filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!file_exists('database/users.csv')) {
-            file_put_contents('database/users.csv', '');
+        <?php
+        if (empty($_POST["name"]) || empty($_POST["email"]) || empty($_POST["gender"])) {
+            echo "<div class='redText'>Empty data</div>";
         }
-        $fp = fopen('database/users.csv', 'a');
-        fwrite($fp, "$name,$email,$gender \n");
-        fclose($fp);
+        else {
+            $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            echo "<b>User Added!</b><br>";
+            echo "Name: " . $_POST["name"] . "<br>";
+            echo "Email: " . $_POST["email"] . "<br>";
+            echo "Gender: " . $_POST["gender"] . "<br>";
+            if (empty($filePath)) {
+                $filePath = "assets/public/images/img.jpg";
+                echo "Filename: " . $filePath . "<br>";
+            } else echo "Filename: " . $filePath . "<br>";
+            $password = 11111;
+            $sql = "INSERT INTO users (email, name, gender, password, path_to_img)
+            VALUES ('$email', '$name','$gender', '$password', '$filePath')";
+            $res = mysqli_query($conn, $sql);
+        }
+        ?>
         <hr>
         <a class="btn" href="adduser.php">return back</a>
         <a class="btn" href="table.php">view list</a>
     </div>
     </body>
     </html>
-<?php

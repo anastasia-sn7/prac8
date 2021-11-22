@@ -18,7 +18,7 @@ body{
 <body>
 <div class="container">
    <h3>Add New User</h3>
-   <form action="handler.php" method="post">
+   <form action="handler.php" method="post" enctype="multipart/form-data">
        <div class="row">
            <div class="field">
                <label>Name: <input type="text" name="name"></label>
@@ -47,12 +47,9 @@ body{
            <div class="file-field input-field">
                <div class="btn">
                    <span>Photo</span>
-                   <input type="file">
-                   <form action="upload.php" method="post" enctype="multipart/form-data">
                        Select image to upload:
-                       <input type="file" name="fileToUpload" id="fileToUpload">
+                       <input type="file" name="photo" id="fileToUpload">
                        <input type="submit" value="Upload Image" name="submit">
-                   </form>
                </div>
                <div class="file-path-wrapper">
                    <input class="file-path validate" type="text">
