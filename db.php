@@ -3,7 +3,11 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
+<<<<<<< HEAD
 $database = "newsite";//повинна бути створена в субд
+=======
+$database = "testdb"; //повинна бути створена в субд
+>>>>>>> origin/master
 
 // Встановлення з'єднання
 $conn = new mysqli($servername, $username, $password, $database);

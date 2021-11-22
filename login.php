@@ -6,6 +6,7 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
 }?>
 <!doctype html>
 <html lang="en">
+<<<<<<< HEAD
 <title>Login</title>
 <head>
     <meta charset="UTF-8">
@@ -22,6 +23,10 @@ if (isset($_SESSION['auth']) && $_SESSION['auth'] === true) {
             width: 400px;
         }
     </style>
+=======
+<head>
+    <meta charset="UTF-8">
+>>>>>>> origin/master
 </head>
 <body>
 <div class="container">
